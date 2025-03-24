@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
-dotenv.config();
+import path from "path"
+
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose"
@@ -7,7 +8,7 @@ import userRoutes from "./routes/users.js"
 import authRoutes from "./routes/auth.js"
 import cookieParser from "cookie-parser"
 import { cookie } from 'express-validator';
-import path from "path"
+
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import {v2 as cloudinary} from "cloudinary"
@@ -15,20 +16,29 @@ import myHotelRoutes from "./routes/my-hotels.js"
 import hotelRoutes from "./routes/hotels.js"
 import bookingRoutes from "./routes/my-bookings.js"
 
+dotenv.config({ path: path.resolve(process.cwd(), "../.env") });
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const source = process.env.MONGODB_CONNECTION_STRING;
-// console.log(source)
-// console.log(process.env.CLOUDINARY_CLOUD_NAME)
 
 cloudinary.config({
-    cloud_name:"dcpvvikum",
-    api_key:"311469293849917",
-    api_secret:"FjSgx-ZwN7FiSC9m_o5DAQSWBo4",
-})
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
-await mongoose.connect("mongodb+srv://vishalshandilya2002:Vishal%40300@cluster0.icevs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"); 
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log("Connected to MongoDB");
+    } catch (error) {
+        console.error("MongoDB connection error:", error);
+        process.exit(1);
+    }
+};
+connectDB();
+
 const app = express();
 app.use(cookieParser())
 app.use(express.json());
