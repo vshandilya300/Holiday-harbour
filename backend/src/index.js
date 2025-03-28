@@ -19,6 +19,11 @@ import dbConnect from "./config/db.js"
 import cloudinaryConfig from './config/cloudinary.js';
 
 dotenv.config({ path: path.resolve(process.cwd(), "../.env") });
+import crypto from 'crypto';
+
+const secretKey = crypto.randomBytes(32).toString('hex');
+console.log(secretKey);
+
 
 
 const __filename = fileURLToPath(import.meta.url);
