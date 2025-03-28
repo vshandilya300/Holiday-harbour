@@ -1,13 +1,17 @@
 import dotenv from 'dotenv';
 import path from "path"
+
 import express from "express";
 import cors from "cors";
+
 import userRoutes from "./routes/users.js"
 import authRoutes from "./routes/auth.js"
 import cookieParser from "cookie-parser"
 import { cookie } from 'express-validator';
+
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+
 import myHotelRoutes from "./routes/my-hotels.js"
 import hotelRoutes from "./routes/hotels.js"
 import bookingRoutes from "./routes/my-bookings.js"
@@ -27,8 +31,12 @@ const app = express();
 app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
-app.use(cors(
-));
+app.use(
+    cors({
+      origin: "https://holiday-harbour-git-main-vshandilya300s-projects.vercel.app",
+      credentials: true,
+    })
+  );
 
 app.use(express.static(path.join(__dirname, "../../frontend/dist")))
 
