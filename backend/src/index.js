@@ -7,7 +7,6 @@ import cors from "cors";
 import userRoutes from "./routes/users.js"
 import authRoutes from "./routes/auth.js"
 import cookieParser from "cookie-parser"
-import { cookie } from 'express-validator';
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -31,10 +30,7 @@ app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 app.use(
-    cors({
-      origin: "https://holiday-harbour-git-main-vshandilya300s-projects.vercel.app",
-      credentials: true,
-    })
+    cors()
   );
 
 app.use(express.static(path.join(__dirname, "../../frontend/dist")))

@@ -1,9 +1,4 @@
-// import dotenv from 'dotenv';
-// dotenv.config();
 
-// const  API_BASE_URL = process.env.VITE_API_BASE_URL;
-// const API_BASE_URL1 = ''
-// console.log( API_BASE_URL)
 
 
 export const fetchCurrentUser = async () => {
